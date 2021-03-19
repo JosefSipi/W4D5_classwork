@@ -45,19 +45,46 @@ end
 list_2 = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
 p my_min_2(list_2)
 
-def largest_contiguous_subsum(list_3) #
-    combo = []
-    list_3.each_with_index do |ele1, idx|
-        combo << [ele1]
-        (idx...list_3.length).each do |idx2|
-            combo << list_3[idx..idx2] unless combo.include?(list_3[idx..idx2])
+def largest_contiguous_subsum(list_3) # 
+    combo = [] #O(1) #potentially up to 25 elements if n == 5
+    list_3.each_with_index do |ele1, idx|  #O(n) --> O(n^4)
+        combo << [ele1] #O(1)
+        (idx...list_3.length).each do |idx2|  #O(n) --> O(n^3)
+            combo << list_3[idx..idx2] unless combo.include?(list_3[idx..idx2]) #O(n^2) 
         end
     end
-    largest = combo[0].sum
-    combo.each {|sub_arr| largest = sub_arr.sum if sub_arr.sum >= largest  }
-    largest
+    largest = combo[0].sum #O(1)
+    combo.each { |sub_arr| largest = sub_arr.sum if sub_arr.sum >= largest } #O(n)
+    largest #O(1)
 end
-
+#Phase I
+# --> POLYNOMIAL n^4
 
 list_3 = [5, 3, -7]
 p largest_contiguous_subsum(list_3) # => 8
+
+
+
+
+def largest_contiguous_subsum_2(list_3) #O(n)
+    largest = list_3[0] # [2, 3, -6, 7, -6, 7]  #O(1)
+                #2
+                        #2    #3
+    list_3.inject do |accum, ele| # [2, 3, -6, 7, -6, 7] #O(n)
+        if accum < 0 #O(1)
+            ele #O(1)
+        else
+            largest = (accum + ele) if (accum + ele > largest) #O(1)
+            accum += ele #O(1)
+        end
+    end
+    largest #O(1)
+end
+list_3 = [2, 3, -6, 7, -6, 7]
+# Phase II --> LINEAR #O(n)
+# Let's make a better version. Write a new function using O(n) time with O(1) memory. 
+# Keep a running tally of the largest sum. To accomplish this efficient space complexity, 
+# consider using two variables. One variable should track the largest sum so far and another 
+# k the current sum. We'll leave the rest to you.
+
+p largest_contiguous_subsum_2(list_3)
