@@ -3,13 +3,13 @@ def first_anagram?(string1, string2)
     ana_string1.include?(string2.split(""))
 end
 
-str1 = "aaamnklmmm"
-str2 = "manaklammm"
+str1 = "aaaasdfmnasdfklmfdsamm"
+str2 = "manakasdflamasdfdsafmm"
 
 before_1 = Time.now
-p first_anagram?(str1, str2)
+# p first_anagram?(str1, str2)
 after_1 = Time.now
-puts "first anagram time: #{after_1 - before_1}"
+# puts "first anagram time: #{after_1 - before_1}"
 
 def second_anagram?(str1, str2) # --> O(n^2)
     str2_arr = str2.split("") # O(n)
@@ -26,3 +26,22 @@ after = Time.now
 puts "second anagram time: #{after - before}"
 
 
+
+def third_anagram?(str1, str2)
+
+    str1.split("").sort == str2.split("").sort
+    
+end
+
+before3 = Time.now
+p third_anagram?(str1,str2)
+after3 = Time.now
+puts "third anagram time: #{after3 - before3}"
+# Phase III:
+# Write a method #third_anagram? that solves the problem by 
+# sorting both strings alphabetically. 
+# The strings are then anagrams if and only if the sorted 
+# versions are the identical.
+
+# What is the time complexity of this solution? 
+# Is it better or worse than #second_anagram??
