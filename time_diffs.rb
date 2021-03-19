@@ -27,7 +27,37 @@ p my_min(list)  # =>  -5
 # Return the element if all other elements in the array are larger.
 # What is the time complexity for this function?
 
+def my_min_2(arr)
 
-# Phase II
+    smallest_value = arr[0] # O(1)
+
+    arr.each do |ele1| # [ 0, 3, 5, 4, -5, 10, 1, 90 ] O(n)
+        smallest_value = ele1 if ele1 <= smallest_value #O(1)
+    end
+
+    smallest_value #O(1)
+
+end
+# Phase II --> linear O(n)
 # Now rewrite the function to iterate through the list just once while 
 # keeping track of the minimum. What is the time complexity?
+
+list_2 = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
+p my_min_2(list_2)
+
+def largest_contiguous_subsum(list_3) #
+    combo = []
+    list_3.each_with_index do |ele1, idx|
+        combo << [ele1]
+        (idx...list_3.length).each do |idx2|
+            combo << list_3[idx..idx2] unless combo.include?(list_3[idx..idx2])
+        end
+    end
+    largest = combo[0].sum
+    combo.each {|sub_arr| largest = sub_arr.sum if sub_arr.sum >= largest  }
+    largest
+end
+
+
+list_3 = [5, 3, -7]
+p largest_contiguous_subsum(list_3) # => 8
