@@ -45,3 +45,22 @@ puts "third anagram time: #{after3 - before3}"
 
 # What is the time complexity of this solution? 
 # Is it better or worse than #second_anagram??
+
+# PHase IV:
+
+def fourth_anagram?(str1,str2) # O(n)
+
+    hash1 = Hash.new(0) # O(1)
+    hash2 = Hash.new(0) # O(1)
+
+    str1.each_char { |char| hash1[char] += 1 } # O(n)
+    str2.each_char { |char| hash2[char] += 1 } # O(n)
+
+    hash1 == hash2 # O(n)
+
+end
+
+before4 = Time.now
+p fourth_anagram?(str1,str2)
+after4 = Time.now
+puts "fourth anagram time: #{after4 - before4}"
